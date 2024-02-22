@@ -68,3 +68,54 @@ exports.login = async(req, res)=>{
     }
 };
 
+exports.getAllUser = async(req,res)=>{
+    try{
+        const users = await User.find({});
+        res.json(users);
+    }catch(error){
+        res.status(500).send(error);
+
+    }
+}
+
+exports.getUserById = async(req,res)=>{
+    try{
+        const user = await User.findBuId(req.params.id);
+        if(!user){
+            return res.status(404).send({message: 'User not found'})
+        }
+        res.json(user);
+
+    }catch(error){
+        console.log('error get the user with id:',error)
+
+    }
+};
+
+exports.updateUserById = async(req,res)=>{
+    try{
+        const updateUser = await User.findByIdAndUpdate(req.params.is, req.body,{new:true});
+        if(updateUser){
+            return res.status(404).send({mesage: 'User not found'});
+        }
+        res.send(updateUser);
+
+    }catch(error){
+        res.status(400).send(error)
+
+    }
+};
+
+exports.deleteUserById = async(req, res)=>{
+
+    try{
+        const deleteUser = await User.findByIdAndDelete(reeq.params.id);
+        if(!deleteUser){
+            return res.status(404).send({mesage:'User not found'})
+        }
+        res.send({mesage: 'user deleted successfully'})
+
+    }catch(error){
+        res.status(500).send(error)
+    }
+}
