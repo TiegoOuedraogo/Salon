@@ -1,16 +1,16 @@
-
-  
-const config = require('config');
 const defaultConfig = require('./default');
 const developmentConfig = require('./development');
 const productionConfig = require('./production');
 
+const environment = process.env.NODE_ENV || 'development'; 
+
 let environmentConfig = {};
 
-if (process.env.NODE_ENV === 'development') {
-  environmentConfig = developmentConfig;
-} else if (process.env.NODE_ENV === 'production') {
-  environmentConfig = productionConfig;
+if (environment === 'development') {
+    environmentConfig = developmentConfig;
+} else if (environment === 'production') {
+environmentConfig = productionConfig;
 }
 
-module.exports = { ...defaultConfig, ...environmentConfig };
+module.exports = {...defaultConfig, ...environmentConfig};
+
