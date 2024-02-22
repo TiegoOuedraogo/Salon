@@ -1,21 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const user = require('../controllers/user');
+const userController = require('../controllers/user'); 
 
-//regist
-router.post('/register',user.register);
+// Register a new user
+router.post('/register', userController.register);
 
-//login
-router.post('/login', user.login);
+// User login
+router.post('/login', userController.login);
 
-router.get('/', user.getAllUser);
+// Get all users (Consider protecting this route)
+router.get('/', userController.getAllUser);
 
-router.get('/:id', user.getUserById);
+// Get a single user by ID (Consider protecting this route)
+router.get('/:id', userController.getUserById);
 
-router.put('/:id', user.updateUserById);
+// Update a user by ID (Consider adding authentication/authorization middleware)
+router.put('/:id', userController.updateUserById);
 
-router.delete('/:id', user.deleteUserById)
-
+// Delete a user by ID (Consider adding authentication/authorization middleware)
+router.delete('/:id', userController.deleteUserById);
 
 module.exports = router;
-

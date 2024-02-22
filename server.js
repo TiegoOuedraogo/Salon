@@ -8,7 +8,11 @@ const passport = require('passport');
 require('dotenv').config();
 require('./config/passport')(passport);
 const connectDB = require('./config/db');
+
+
 const userRoutes = require('./routes/userRoutes');
+const appointmentRoutes = require('./routes/appointmentRoutes');
+const serviceRoutes = require('./routes/serviceRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -25,7 +29,9 @@ app.use(morgan('tiny'));
 connectDB();
 
 // Use routes
-app.use('/users', userRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/appointments', appointmentRoutes)
+app.use('/api/services', serviceRoutes);
 
 // Protected route example
 app.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
